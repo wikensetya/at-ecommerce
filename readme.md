@@ -76,7 +76,7 @@ After a moment, the Cypress Launchpad will open.
 
 ### Preview
 
-![screenshot]()
+![screenshot](https://github.com/wikensetya/at-ecommerce/blob/main/preview_at-ecommerce.gif)
 
 ## Authors
 
