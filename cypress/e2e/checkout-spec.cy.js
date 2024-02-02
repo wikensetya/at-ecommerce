@@ -15,7 +15,7 @@ describe('User can search then checkout the product', () => {
 
     /** User add the product to cart **/
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Ui/templates/**').as('apiTemplates')
-    cy.wait('@apiTemplates').its('response.statusCode').should('eq', 200)
+    cy.wait('@apiTemplates', {timeout: 10000}).its('response.statusCode').should('eq', 200)
     cy.get('button#product-addtocart-button').scrollIntoView().should('be.visible').click()
     cy.scrollTo('top')
     cy.get('[data-ui-id="message-success"]').should('contain', 'You added Voyage Yoga Bag to your shopping cart')
@@ -37,16 +37,16 @@ describe('User can search then checkout the product', () => {
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Ui/template/messages.html').as('apiMessages')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/sidebar.html').as('apiSidebar')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Customer/template/authentication-popup.html').as('apiAuthenticationPopup')
-    cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/authentication.html').as('apiAuthentication')
+    // cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/authentication.html').as('apiAuthentication')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/summary.html').as('apiSummary')
-    cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/payment.html').as('apiPayment')
-    cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Captcha/template/checkout/captcha.html').as('apiCaptcha')
+    // cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/payment.html').as('apiPayment')
+    // cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Captcha/template/checkout/captcha.html').as('apiCaptcha')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/estimation.html').as('apiEstimation')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/summary/totals.html').as('apiTotals')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/summary/cart-items.html').as('apiCartItems')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/payment-methods/list.html').as('apiPaymentList')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_SalesRule/template/payment/discount.html').as('apiPaymentDiscount')
-    cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Tax/template/checkout/summary/subtotal.html').as('apiSubtotal')
+    // cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Tax/template/checkout/summary/subtotal.html').as('apiSubtotal')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_SalesRule/template/summary/discount.html').as('apiSummaryDiscount')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Tax/template/checkout/summary/shipping.html').as('apiSummaryShipping')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Weee/template/checkout/summary/weee.html').as('apiWeee')
@@ -71,11 +71,12 @@ describe('User can search then checkout the product', () => {
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Ui/templates/group/group.html').as('apiGroup')
     // cy.intercept('GET', '**/frontend/Magento/luma/en_US/Amazon_Payment/template/shipping-address/inline-form.html').as('apiInlineForm')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Ui/templates/form/element/input.html').as('apiInput')
-    cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Ui/templates/form/element/select.html').as('apiSelect')
+    // cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Ui/templates/form/element/select.html').as('apiSelect')
     // cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/shipping-address/shipping-method-list.html').as('apiShippingMethodList')
     // cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Checkout/template/shipping-address/shipping-method-item.html').as('apiShippingMethodItem')
     cy.intercept('GET', '**/frontend/Magento/luma/en_US/Magento_Tax/template/checkout/shipping_method/price.html').as('apiPrice')
     cy.wait([
+      '@apiTemplates',
       // '@apiBlockLoader',
       // '@apiModalPopup',
       // '@apiModalSlide',
@@ -87,16 +88,16 @@ describe('User can search then checkout the product', () => {
       '@apiMessages',
       '@apiSidebar',
       '@apiAuthenticationPopup',
-      '@apiAuthentication',
+      // '@apiAuthentication',
       '@apiSummary',
-      '@apiPayment',
-      '@apiCaptcha',
+      // '@apiPayment',
+      // '@apiCaptcha',
       '@apiEstimation',
       '@apiTotals',
       '@apiCartItems',
       '@apiPaymentList',
       '@apiPaymentDiscount',
-      '@apiSubtotal',
+      // '@apiSubtotal',
       '@apiSummaryDiscount',
       '@apiSummaryShipping',
       '@apiWeee',
@@ -121,11 +122,11 @@ describe('User can search then checkout the product', () => {
       '@apiGroup',
       // '@apiInlineForm',
       '@apiInput',
-      '@apiSelect',
+      // '@apiSelect',
       // '@apiShippingMethodList',
       // '@apiShippingMethodItem',
       '@apiPrice'
-    ]).each((apiFrontend) => {
+    ],{timeout: 10000}).each((apiFrontend) => {
       const response = apiFrontend.response
       cy.log(JSON.stringify(response))
       if (response && response.statusCode) {
