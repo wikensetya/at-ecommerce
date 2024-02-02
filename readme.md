@@ -1,6 +1,6 @@
 # Automation Test Web E-Commerce DEMO
 
-This repository is used to practice automation test. I use cypress for this project, and you can find more information about Cypress [here](https://docs-vercel.cypress.io/guides/overview/why-cypress). I use web application [E-Commerce Demo] (https://magento.softwaretestingboard.com/) to execute the automation script.
+This repository is used to practice automation test. I use cypress for this project, and you can find more information about Cypress [here](https://docs-vercel.cypress.io/guides/overview/why-cypress). I use web application [E-Commerce Demo](https://magento.softwaretestingboard.com/) to execute the automation script.
 
 ## Getting Started
 
